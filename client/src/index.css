@@ -1,0 +1,43 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),
+    url("/4.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  font-family: "Poppins", sans-serif;
+
+  /* Style for Firefox */
+  scrollbar-color: #0e9953 #09a54a;
+  scrollbar-width: thin;
+}
+
+h1 {
+  font-family: "Lobster", sans-serif;
+}
+/* Style for Webkit browsers */
+::-webkit-scrollbar {
+  width: 8px !important;
+  cursor: pointer !important;
+}
+
+::-webkit-scrollbar-track {
+  cursor: pointer !important;
+  background: #555;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #121212;
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #242424;
+}
+
+::-webkit-scrollbar-button {
+  display: none !important;
+}
