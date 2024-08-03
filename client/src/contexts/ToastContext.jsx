@@ -2,11 +2,13 @@
 import React, { createContext, useContext, useState } from "react";
 import Toast from "../components/Toast";
 
-const ToastContext = createContext();
+export const ToastContext = createContext();
 
-export const useToastContext = () => useContext(ToastContext);
+export const useToastContext = () => {
+  return useContext(ToastContext);
+};
 
-export const ToastProvider = ({ children }) => {
+export const ToastContextProvider = ({ children }) => {
   const [toasts, setToasts] = useState([]);
   const [nextZIndex, setNextZIndex] = useState(1000);
   const [nextTop, setNextTop] = useState("16px");
