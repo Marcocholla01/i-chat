@@ -1,8 +1,35 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import Backdrop from "../components/Backdrop";
+import useLogin from "../hooks/useLogin";
+import Loader from "../components/Loader";
+import useHandleLoginErrors from "../errors/handleLoginErrors";
 
 const Login = () => {
+  const { login, loading } = useLogin();
+  const [inputs, setInputs] = useState({
+    identifier: "",
+    password: "",
+  });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setInputs((prevInputs) => ({
+      ...prevInputs,
+      [name]: value,
+    }));
+  };
+
+  const { checkErrors } = useHandleLoginErrors(inputs);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (checkErrors()) return; // If errors are found, exit
+    // console.log("Inputs: ", inputs);
+    await login(inputs);
+  };
+
+  if (loading) return <Loader />;
+
   return (
     <Backdrop>
       <h1 className="text-3xl font-bold text-center text-blue-500 uppercase">
@@ -11,14 +38,17 @@ const Login = () => {
       <h1 className="text-2xl font-semibold text-center text-gray-300 mt-2">
         Login
       </h1>
-      <form>
+      <form onSubmit={handleSubmit}>
         <div>
           <label htmlFor="" className="label p-2">
-            <span className="text-base label-text">Username</span>
+            <span className="text-base label-text">Email or Username</span>
           </label>
           <input
             type="text"
-            placeholder="Enter username"
+            name="identifier"
+            value={inputs.identifier}
+            onChange={handleChange}
+            placeholder="Enter email or username"
             className="w-full input input-bordered input-info h-10"
           />
         </div>
@@ -28,6 +58,9 @@ const Login = () => {
           </label>
           <input
             type="password"
+            name="password"
+            value={inputs.password}
+            onChange={handleChange}
             placeholder="Enter password"
             className="w-full input input-bordered input-info h-10"
           />
@@ -45,7 +78,9 @@ const Login = () => {
           </Link>
         </div>
         <div>
-          <button className="btn btn-block btn-sm mt-3 uppercase">Login</button>
+          <button type="submit" className="btn btn-block btn-sm mt-3 uppercase">
+            Login
+          </button>
         </div>
       </form>
     </Backdrop>
