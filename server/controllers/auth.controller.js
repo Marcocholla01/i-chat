@@ -113,7 +113,7 @@ exports.loginUser = async (req, res) => {
 
 exports.logoutUser = async (req, res) => {
   try {
-    res.cookie("i-chat-token", "", null);
+    res.cookie("i_chat_token", "", null);
     res
       .status(200)
       .json({ success: true, message: `You have successfully logout` });

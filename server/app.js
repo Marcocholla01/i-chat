@@ -4,6 +4,7 @@ const cors = require(`cors`);
 
 //  Routes imports
 const authRoutes = require(`./routes/auth.routes`);
+const messageRoutes = require(`./routes/message.routes`);
 
 const app = express();
 
@@ -15,6 +16,7 @@ app.use(express.urlencoded({ extended: true }));
 
 // Route Middlewares
 app.use(`/api/v0/auth`, authRoutes);
+app.use(`/api/v0/messages`, messageRoutes);
 
 app.get(`/`, (req, res) => {
   res.status(200).json({ message: `welcome` });

@@ -19,5 +19,5 @@ exports.generateTokenAndSetCookie = (userId, res) => {
     maxAge: Date.now() + parseInt(COOKIE_EXPIRES_IN),
   };
 
-  res.cookie("i-chat-token", jwtToken, options);
+  res.cookie("i_chat_token", jwtToken, options);
 };
