@@ -47,18 +47,19 @@ exports.sendMessage = async (req, res) => {
 
 // Get Messages of logged in user
 exports.getMessages = async (req, res) => {
-  const { conversationId } = req.params;
+  const { recieverId } = req.params;
+  const { _id: senderId } = req.auth;
 
   try {
     const conversation = await conversationModel
-      .findById({ _id: conversationId })
+      .findOne({ participants: { $all: [senderId, recieverId] } })
       .populate("messages");
 
     if (!conversation)
       return res.status(200).json({ success: true, messages: [] });
 
     const messages = conversation.messages;
-    res.status(200).json({ success: true, messages });
+    res.status(200).json({ success: true, messages: conversation.messages });
   } catch (error) {
     console.log(`Error in grtMessages controller : ${error.message}`);
     return res.status(500).json({ success: true, message: error.message });
