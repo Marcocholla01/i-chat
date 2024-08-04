@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
-import useToast from "./useToast";
+import { useToast } from "../contexts/ToastContext";
+// import useToast from "./useToast";
 
 const useGetConversations = () => {
-  const { showToast } = useToast();
+  // const { showToast } = useToast();
+  const showToast = useToast();
   const [loading, setLoading] = useState();
   const [conversations, setConversations] = useState([]);
 
@@ -22,7 +24,7 @@ const useGetConversations = () => {
         if (!response.ok) {
           // Check if the response contains error information
           showToast(
-            "error",
+            "error", "Error",
             data?.message || "Error fetching conversations",
             5000
           );
@@ -31,7 +33,7 @@ const useGetConversations = () => {
       } catch (error) {
         // Handle general errors
         showToast(
-          "error",
+          "error", "Error",
           error?.response?.data?.message || "Something went wrong",
           5000
         );

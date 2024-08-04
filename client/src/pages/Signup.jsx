@@ -3,7 +3,7 @@ import Backdrop from "../components/Backdrop";
 import { Link } from "react-router-dom";
 import useSignup from "../hooks/useSignup";
 import Loader from "../components/Loader";
-import useHandleSignupErrors from "../errors/handleSignupErrors";
+import handleSignupEmptyFields from "../errors/handleSignupEmptyFields";
 
 const Signup = () => {
   const { signup, loading } = useSignup();
@@ -23,7 +23,7 @@ const Signup = () => {
       [name]: value,
     }));
   };
-  const { checkErrors } = useHandleSignupErrors(inputs);
+  const { checkErrors } = handleSignupEmptyFields(inputs);
 
   const handleSubmit = async (e) => {
     e.preventDefault();

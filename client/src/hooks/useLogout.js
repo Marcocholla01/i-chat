@@ -1,10 +1,12 @@
 import React, { useState } from "react";
-import useToast from "./useToast";
+// import useToast from "./useToast";
 import { useAuthContext } from "../contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
+import { useToast } from "../contexts/ToastContext";
 
 const useLogout = () => {
-  const { showToast } = useToast();
+  const showToast  = useToast();
+  // const { showToast } = useToast();
   const { setAuthUser } = useAuthContext();
   const navigate = useNavigate();
 
@@ -22,9 +24,9 @@ const useLogout = () => {
 
       if (!response.ok) {
         // Check if the response contains error information
-        showToast("error", data?.message || "Logout failed", 5000);
+        showToast("error", "Error", data?.message || "Logout failed", 5000);
       }
-      showToast("success", data?.message || "Logout successfully", 5000);
+      showToast("success","Success", data?.message || "Logout successfully", 5000);
 
       //local storage
       localStorage.removeItem("chat-user");
@@ -34,7 +36,7 @@ const useLogout = () => {
       //   navigate(`/login`);
     } catch (error) {
       // Handle general errors
-      showToast("error", error.message || "Something went wrong", 5000);
+      showToast("error", "Error", error.message || "Something went wrong", 5000);
     } finally {
       setLoading(false);
     }

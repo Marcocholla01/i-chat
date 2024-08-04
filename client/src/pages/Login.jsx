@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import Backdrop from "../components/Backdrop";
 import useLogin from "../hooks/useLogin";
 import Loader from "../components/Loader";
-import useHandleLoginErrors from "../errors/handleLoginErrors";
+import handleLoginEmptyFields from "../errors/handleLoginEmptyFields";
 
 const Login = () => {
   const { login, loading } = useLogin();
@@ -20,7 +20,7 @@ const Login = () => {
     }));
   };
 
-  const { checkErrors } = useHandleLoginErrors(inputs);
+  const { checkErrors } = handleLoginEmptyFields(inputs);
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (checkErrors()) return; // If errors are found, exit

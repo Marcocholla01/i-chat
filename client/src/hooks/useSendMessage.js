@@ -1,10 +1,12 @@
 import React, { useState } from "react";
-import useToast from "./useToast";
+// import useToast from "./useToast";
 import useConversation from "../zustand/useConversation";
+import { useToast } from "../contexts/ToastContext";
 
 const useSendMessage = () => {
-  const { showToast } = useToast();
-  const [loading, setLoading] = useState();
+    //   const { showToast } = useToast();
+      const showToast = useToast();
+    const [loading, setLoading] = useState();
   const { messages, setMessages, selectedConversation } = useConversation();
 
   const sendMessage = async (message) => {
@@ -29,7 +31,7 @@ const useSendMessage = () => {
     } catch (error) {
       // Handle general errors
       showToast(
-        "error",
+        "error", "Error",
         error?.response?.data?.message || "Something went wrong",
         5000
       );

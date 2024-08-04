@@ -1,11 +1,13 @@
 import React, { useState } from "react";
-import useToast from "./useToast";
+// import useToast from "./useToast";
 import { useNavigate } from "react-router-dom";
 import { useAuthContext } from "../contexts/AuthContext";
+import { useToast } from "../contexts/ToastContext";
 
 const useSignup = () => {
   const navigate = useNavigate();
-  const { showToast } = useToast();
+  // const { showToast } = useToast();
+  const showToast  = useToast();
   const { setAuthUser } = useAuthContext();
   const [loading, setLoading] = useState(false);
 
@@ -24,10 +26,10 @@ const useSignup = () => {
 
       if (!response.ok) {
         // Check if the response contains error information
-        showToast("error", data?.message || "Authentication failed", 5000);
+        showToast("error", "Error", data?.message || "Authentication failed", 5000);
       } else {
         showToast(
-          "success",
+          "success","Success",
           data?.message || "Authenticated successfully",
           5000
         );
@@ -42,7 +44,7 @@ const useSignup = () => {
     } catch (error) {
       // Handle general errors
       showToast(
-        "error",
+        "error", "Error",
         error?.response?.data?.message || "Something went wrong",
         5000
       );
