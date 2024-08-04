@@ -25,14 +25,19 @@ const useLogin = () => {
       if (!response.ok) {
         // Check if the response contains error information
         showToast("error", data?.message || "Authentication failed", 5000);
+      } else {
+        showToast(
+          "success",
+          data?.message || "Authenticated successfully",
+          5000
+        );
+
+        //local storage
+        localStorage.setItem("chat-user", JSON.stringify(data.user));
+
+        // updating AutStateContext
+        await setAuthUser(data?.user);
       }
-      showToast("success", data?.message || "Authenticated successfully", 5000);
-
-      //local storage
-      localStorage.setItem("chat-user", JSON.stringify(data.user));
-
-      // updating AutStateContext
-      await setAuthUser(data.user);
     } catch (error) {
       // Handle general errors
       showToast(

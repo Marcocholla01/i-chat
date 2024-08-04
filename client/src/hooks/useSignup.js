@@ -25,15 +25,20 @@ const useSignup = () => {
       if (!response.ok) {
         // Check if the response contains error information
         showToast("error", data?.message || "Authentication failed", 5000);
+      } else {
+        showToast(
+          "success",
+          data?.message || "Authenticated successfully",
+          5000
+        );
+
+        //local storage
+        localStorage.setItem("chat-user-unverified", JSON.stringify(data.user));
+
+        setTimeout(() => {
+          navigate(`/verify-account`);
+        }, 2000);
       }
-      showToast("success", data?.message || "Authenticated successfully", 5000);
-
-      //local storage
-      localStorage.setItem("chat-user-unverified", JSON.stringify(data.user));
-
-      setTimeout(() => {
-        navigate(`/verify-account`);
-      }, 2000);
     } catch (error) {
       // Handle general errors
       showToast(

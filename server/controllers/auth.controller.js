@@ -87,7 +87,7 @@ exports.loginUser = async (req, res) => {
         message: `${identifier} user account does not exists`,
       });
 
-    const matchedPassword = bcrypt.compare(password, existingUser.password);
+    const matchedPassword = bcrypt.compareSync(password, existingUser.password);
     if (!matchedPassword)
       return res
         .status(403)
