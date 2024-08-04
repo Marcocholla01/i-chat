@@ -2,15 +2,19 @@ import React, { useRef, useState } from "react";
 import { BsSend } from "react-icons/bs";
 // import Picker from "emoji-picker-react";
 import InputEmoji from "react-input-emoji";
+import useSendMessage from "../../hooks/useSendMessage";
 
 const MessageInput = () => {
   const [text, setText] = useState("");
+  const { sendMessage, loading } = useSendMessage();
   const formRef = useRef(null); // Reference to the form element
 
-  const handleSubmit = (e) => {
-    e.preventDefault(); // Prevent default form submission behavior
+  const handleSubmit = async (e) => {
+    e.preventDefault();
     if (text.trim() === "") return; // Optionally handle empty submissions
     console.log("Submitted text:", text);
+    // if (!text) return;
+    await sendMessage(text);
     setText(""); // Clear the input field
   };
 
@@ -65,12 +69,17 @@ const MessageInput = () => {
           fontFamily="Poppins"
           color="white"
         />
+
         <div className="tooltip tooltip-top" data-tip="Send">
           <button
             type="submit"
             className="btn btn-circle bg-sky-500 text-white"
           >
-            <BsSend className="w-6 h-6 outline-none" />
+            {loading ? (
+              <div className="loading loading-spinner"></div>
+            ) : (
+              <BsSend className="w-6 h-6 outline-none" />
+            )}
           </button>
         </div>
       </form>
