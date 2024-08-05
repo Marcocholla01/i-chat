@@ -8,6 +8,7 @@ if (process.env.NODE_ENV !== "PRODUCTION") {
 
 exports.PORT = process.env.PORT;
 exports.MONGOBD_URI = process.env.MONGOBD_URI;
+exports.FRONTEND_URL = process.env.FRONTEND_URL;
 
 exports.ACTIVATION_SECRET_KEY = process.env.ACTIVATION_SECRET_KEY;
 exports.ACTIVATION_EXPIRES_IN = process.env.ACTIVATION_EXPIRES_IN;

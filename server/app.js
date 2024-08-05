@@ -7,7 +7,7 @@ const authRoutes = require(`./routes/auth.routes`);
 const userRoutes = require(`./routes/user.routes`);
 const messageRoutes = require(`./routes/message.routes`);
 
-const app = express();
+const { app } = require("./socket/socket");
 
 // MIDDLEWARES
 app.use(cors());
