@@ -4,7 +4,7 @@ const { JWT_SECRET_KEY } = require("../config/config");
 const { userModel } = require("../models/user.model");
 
 exports.isAuthenticated = async (req, res, next) => {
-  console.log(req.headers);
+  // console.log(req.headers);
   const token =
     req.cookies.i_chat_token ||
     req.header(`cookie`)?.replace("i_chat_token=", "") ||
