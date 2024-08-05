@@ -21,9 +21,14 @@ io.on("connection", (socket) => {
   const userId = socket.handshake.query.userId;
   if (userId !== "undefined") userSocketMap[userId] = socket.id;
 
+  // io.emit() used to send events to all connected clients
+  io.emit("getOnlineUsers", Object.keys(userSocketMap));
+
   // socket.on() is used to listen to events can be used on both server and client side
   socket.on(`disconnect`, () => {
     console.log(`A user disconnected ${socket.id}`);
+    delete userSocketMap[userId];
+    io.emit("getOnlineUsers", Object.keys(userSocketMap));
   });
 });
 
