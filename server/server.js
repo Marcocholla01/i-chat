@@ -1,6 +1,7 @@
 const app = require(`./app`);
 const { PORT } = require("./config/config");
 const { checkDbConnection } = require("./config/database");
+const { socketServer } = require("./socket/socket");
 // const { deleteUnverifiedUser } = require("./middlewares/taskScheduler");
 
 // Handle Uncaught Exception
@@ -16,7 +17,7 @@ process.on(`uncaughtException`, (error) => {
 checkDbConnection();
 
 // create server
-const server = app.listen(PORT, () => {
+const server = socketServer.listen(PORT, () => {
   console.log(`server is running on http://localhost:${PORT}`);
   //   console.log(`Project home page: https://auth-it.onrender.com`.magenta.italic);
 });
