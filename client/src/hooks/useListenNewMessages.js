@@ -2,12 +2,17 @@ import React, { useEffect, useState } from "react";
 import { useSocketContext } from "../contexts/SocketContext";
 import useConversation from "../zustand/useConversation";
 
+// import notification from "../../public/audio/notification-1.ogg";
+import notification from "../../public/audio/notification-2.m4a";
+
 const useListenNewMessages = () => {
   const { socket } = useSocketContext();
   const { messages, setMessages } = useConversation();
 
   useEffect(() => {
     socket?.on("newMessage", (newMessage) => {
+      const sound = new Audio(notification);
+      sound.play();
       setMessages([...messages, newMessage]);
     });
 
