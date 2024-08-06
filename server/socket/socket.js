@@ -31,6 +31,8 @@ io.on("connection", (socket) => {
   // socket.on() is used to listen to events can be used on both server and client side
   socket.on(`disconnect`, () => {
     console.log(`A user disconnected ${socket.id}`);
+
+    // Remove user from socket list
     delete userSocketMap[userId];
     io.emit("getOnlineUsers", Object.keys(userSocketMap));
   });

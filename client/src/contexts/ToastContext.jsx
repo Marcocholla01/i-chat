@@ -58,7 +58,7 @@ export const ToastContextProvider = ({ children }) => {
   const toastRef = useRef(null);
 
   const showToast = (severity, summary, detail) => {
-    toastRef.current.show({ severity, summary, detail, life: 3000 });
+    toastRef.current?.show({ severity, summary, detail, life: 3000 });
   };
 
   return (
