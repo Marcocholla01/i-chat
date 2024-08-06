@@ -20,7 +20,7 @@ const Conversation = ({ conversation, emoji, lastIdx }) => {
         <div className={`avatar ${isOnline ? "online" : ""}`}>
           <div className="w-12 rounded-full">
             <img
-              src={"/avatar.png"} //{conversation?.avatar ? conversation?.avatar : "/avatar.png"}
+              src={conversation?.avatar ? conversation?.avatar : "/avatar.png"}
               alt={`${conversation.userName} avatar`}
             />
           </div>
