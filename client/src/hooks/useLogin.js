@@ -3,6 +3,8 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuthContext } from "../contexts/AuthContext";
 import { useToast } from "../contexts/ToastContext";
+import { SERVER_URL } from "../config/config";
+import axios from "../config/axiosConfig";
 
 const useLogin = () => {
   const navigate = useNavigate();
@@ -14,17 +16,14 @@ const useLogin = () => {
   const login = async (inputs) => {
     setLoading(true);
     try {
-      const config = {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(inputs),
-      };
-
       // Replace with your actual API URL
-      const response = await fetch("/api/v0/auth/login-user", config);
-      const data = await response.json();
+      const response = await axios.post(
+        `${SERVER_URL}/api/v0/auth/login-user`,
+        { identifier: inputs.identifier, password: inputs.password }
+      );
+      const data = await response.data;
 
-      if (!response.ok) {
+      if (!data) {
         // Check if the response contains error information
         showToast(
           "error",
@@ -54,6 +53,8 @@ const useLogin = () => {
         error?.response?.data?.message || "Something went wrong",
         5000
       );
+
+      console.log(error);
     } finally {
       setLoading(false);
     }

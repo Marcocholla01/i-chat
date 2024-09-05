@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useToast } from "../contexts/ToastContext";
+import { SERVER_URL } from "../config/config";
+import axios from "../config/axiosConfig";
 // import useToast from "./useToast";
 
 const useGetConversations = () => {
@@ -12,19 +14,15 @@ const useGetConversations = () => {
     const getCoverstions = async () => {
       setLoading(true);
       try {
-        const config = {
-          method: "GET",
-          headers: { "Content-Type": "application/json" },
-        };
-
         // Replace with your actual API URL
-        const response = await fetch("/api/v0/users", config);
-        const data = await response.json();
+        const response = await axios.get(`${SERVER_URL}/api/v0/users`);
+        const data = await response.data;
 
-        if (!response.ok) {
+        if (!data) {
           // Check if the response contains error information
           showToast(
-            "error", "Error",
+            "error",
+            "Error",
             data?.message || "Error fetching conversations",
             5000
           );
@@ -33,7 +31,8 @@ const useGetConversations = () => {
       } catch (error) {
         // Handle general errors
         showToast(
-          "error", "Error",
+          "error",
+          "Error",
           error?.response?.data?.message || "Something went wrong",
           5000
         );

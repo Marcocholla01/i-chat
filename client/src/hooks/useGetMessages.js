@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
 import useConversation from "../zustand/useConversation";
 import { useToast } from "../contexts/ToastContext";
+import { SERVER_URL } from "../config/config";
+import axios from "../config/axiosConfig";
 // import useToast from "./useToast";
 
 const useGetMessages = () => {
-//   const { showToast } = useToast();
+  //   const { showToast } = useToast();
   const showToast = useToast();
   const [loading, setLoading] = useState(false);
   const { messages, setMessages, selectedConversation } = useConversation();
@@ -14,17 +16,11 @@ const useGetMessages = () => {
     const getMessage = async () => {
       setLoading(true);
       try {
-        const config = {
-          method: "GET",
-          headers: { "Content-Type": "application/json" },
-        };
-
         // Replace with your actual API URL
-        const response = await fetch(
-          `/api/v0/messages/${selectedConversation._id}`,
-          config
+        const response = await axios.get(
+          `${SERVER_URL}/api/v0/messages/${selectedConversation._id}`,
         );
-        const data = await response.json();
+        const data = await response.data;
         if (data.success === false) throw new Error(data.message);
 
         setMessages(data.messages);
@@ -32,7 +28,8 @@ const useGetMessages = () => {
       } catch (error) {
         // Handle general errors
         showToast(
-          "error", "Error",
+          "error",
+          "Error",
           error?.response?.data?.message || "Something went wrong",
           5000
         );

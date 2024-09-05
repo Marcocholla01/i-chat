@@ -3,33 +3,41 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuthContext } from "../contexts/AuthContext";
 import { useToast } from "../contexts/ToastContext";
+import { SERVER_URL } from "../config/config";
+import axios from "../config/axiosConfig";
 
 const useSignup = () => {
   const navigate = useNavigate();
   // const { showToast } = useToast();
-  const showToast  = useToast();
+  const showToast = useToast();
   const { setAuthUser } = useAuthContext();
   const [loading, setLoading] = useState(false);
 
   const signup = async (inputs) => {
     setLoading(true);
     try {
-      const config = {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(inputs),
-      };
-
       // Replace with your actual API URL
-      const response = await fetch("/api/v0/auth/create-user", config);
-      const data = await response.json();
+      const response = await axios.post(
+        `${SERVER_URL}/api/v0/auth/create-user`,
+        {
+          identifier: inputs.identifier,
+          password: inputs.password,
+        }
+      );
+      const data = await response.data;
 
-      if (!response.ok) {
+      if (!data) {
         // Check if the response contains error information
-        showToast("error", "Error", data?.message || "Authentication failed", 5000);
+        showToast(
+          "error",
+          "Error",
+          data?.message || "Authentication failed",
+          5000
+        );
       } else {
         showToast(
-          "success","Success",
+          "success",
+          "Success",
           data?.message || "Authenticated successfully",
           5000
         );
@@ -44,7 +52,8 @@ const useSignup = () => {
     } catch (error) {
       // Handle general errors
       showToast(
-        "error", "Error",
+        "error",
+        "Error",
         error?.response?.data?.message || "Something went wrong",
         5000
       );

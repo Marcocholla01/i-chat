@@ -12,7 +12,7 @@ const MessageContainer = () => {
   const { selectedConversation, setSelectedConversation } = useConversation();
   // const noChatSelected = true;
   const { conversations } = useGetConversations();
-  const conversation = conversations.find(
+  const conversation = conversations?.find(
     (c) => c._id === selectedConversation?._id
   );
 

@@ -3,9 +3,11 @@ import React, { useState } from "react";
 import { useAuthContext } from "../contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { useToast } from "../contexts/ToastContext";
+import { SERVER_URL } from "../config/config";
+import axios from "../config/axiosConfig";
 
 const useLogout = () => {
-  const showToast  = useToast();
+  const showToast = useToast();
   // const { showToast } = useToast();
   const { setAuthUser } = useAuthContext();
   const navigate = useNavigate();
@@ -14,19 +16,21 @@ const useLogout = () => {
   const logout = async () => {
     setLoading(true);
     try {
-      const config = {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-      };
+      const response = await axios.post(
+        `${SERVER_URL}/api/v0/auth/logout-user`
+      );
+      const data = await response.data;
 
-      const response = await fetch("/api/v0/auth/logout-user", config);
-      const data = await response.json();
-
-      if (!response.ok) {
+      if (!data) {
         // Check if the response contains error information
         showToast("error", "Error", data?.message || "Logout failed", 5000);
       }
-      showToast("success","Success", data?.message || "Logout successfully", 5000);
+      showToast(
+        "success",
+        "Success",
+        data?.message || "Logout successfully",
+        5000
+      );
 
       //local storage
       localStorage.removeItem("chat-user");
@@ -36,7 +40,12 @@ const useLogout = () => {
       //   navigate(`/login`);
     } catch (error) {
       // Handle general errors
-      showToast("error", "Error", error.message || "Something went wrong", 5000);
+      showToast(
+        "error",
+        "Error",
+        error.message || "Something went wrong",
+        5000
+      );
     } finally {
       setLoading(false);
     }
