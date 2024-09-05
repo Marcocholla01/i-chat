@@ -1,5 +1,3 @@
----
-
 # I-CHAT App
 
 **I-CHAT** is a real-time messaging web application built with Vite, React, TailwindCSS, DaisyUI for the frontend, and Node.js/Express with WebSockets for the backend. It uses Context API and LocalStorage for authentication, Zustand for managing messages, JWT for token-based authentication, and cookie-parser for handling cookies. The app also features audio notifications for incoming messages.
