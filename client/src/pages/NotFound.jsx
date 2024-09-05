@@ -7,7 +7,7 @@ const NotFound = () => {
     <Backdrop>
       <div className="flex flex-col items-center justify-center">
         <div>
-          <img src="/404-page-not-found.svg" alt="" className="h-60" />
+          <img src="/images/404-page-not-found.svg" alt="" className="h-60" />
         </div>
         <div className="flex flex-col items-center justify-center">
           <h1 className="text-4xl font-bold mt-4 text-white">404 NOT FOUND</h1>
