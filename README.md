@@ -1,5 +1,3 @@
-Here's a structured `README.md` for your I-CHAT app using the specified tech stack:
-
 ---
 
 # I-CHAT App
@@ -19,15 +17,15 @@ Here's a structured `README.md` for your I-CHAT app using the specified tech sta
 
 ### Home page
 
-![alt text](image-1.png)
+![alt text](/client/public/images/ui/image-1.png)
 
 ### chat page
 
-![alt text](image-2.png)
+![alt text](/client/public/images/ui/image-2.png)
 
 ### Login page
 
-![alt text](image-3.png)
+![alt text](/client/public/images/ui/image-3.png)
 
 ## Prerequisites
 
