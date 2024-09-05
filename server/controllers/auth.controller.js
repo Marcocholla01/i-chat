@@ -103,6 +103,7 @@ exports.loginUser = async (req, res) => {
         email: existingUser.email,
         avatar: existingUser.avatar,
         fullName: existingUser.fullName,
+        userName: existingUser.userName,
       },
     });
   } catch (error) {

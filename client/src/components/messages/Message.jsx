@@ -1,7 +1,9 @@
 import React, { useEffect, useRef } from "react";
 import { useAuthContext } from "../../contexts/AuthContext";
 import useConversation from "../../zustand/useConversation";
+import { timeAgo } from "../../utils/timeAgo";
 
+// eslint-disable-next-line react/prop-types
 const Message = ({ message }) => {
   // console.log(message);
   const messageBubbleRef = useRef(null);
@@ -11,6 +13,9 @@ const Message = ({ message }) => {
   const fromMe = message?.senderId === authUser.userId;
   const chatClassName = fromMe ? "chat-end" : "chat-start";
   const avatar = fromMe ? authUser.avatar : selectedConversation.avatar;
+  const time = timeAgo(message.createdAt);
+  console.log(message.createdAt);
+  console.log(time);
 
   const bubbleBgColor = fromMe ? "" : "bg-blue-500";
 
@@ -35,7 +40,7 @@ const Message = ({ message }) => {
         </div>
         <div className="chat-header">
           Obi-Wan Kenobi
-          <time className="text-xs opacity-50 ml-2">12:45</time>
+          <time className="text-xs opacity-50 ml-2">{time}</time>
         </div>
         <div
           ref={messageBubbleRef}
